@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { MONGODB_USER, MONGODB_PASSWORD} = require('../config');
 const authRoutes = require('./routes/authRoutes');
+const requireAuth = require('./middlewares/requireAuth');
 
 const app = express();
 
@@ -26,8 +27,8 @@ mongoose.connection.on('error', (err) => {
   console.error('Error connectiong to mongoDB', err)
 });
 
-app.get('/', (req, res) => {
-  res.send('Hi there');
+app.get('/', requireAuth, (req, res) => {
+  res.send(`Your email is ${req.user.email}`);
 })
 
 const PORT = process.env.PORT || 3001;
