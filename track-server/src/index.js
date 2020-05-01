@@ -1,8 +1,15 @@
+require('./models/User');
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const { MONGODB_USER, MONGODB_PASSWORD} = require('../config');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
+
+//middleware
+app.use(bodyParser.json());
+app.use(authRoutes);
 
 const mongoUri = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@cluster0-qzgrx.mongodb.net/test?retryWrites=true&w=majority`;
 mongoose.connect(mongoUri, {
