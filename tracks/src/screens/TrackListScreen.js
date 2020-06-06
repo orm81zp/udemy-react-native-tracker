@@ -9,8 +9,7 @@ const TrackListScreen = ({ navigation }) => {
 
   return (
     <React.Fragment>
-      <NavigationEvents onWillFocus={() => fetchTracks()} />
-      <Text style={{ fontSize: 48 }}>TrackListScreen</Text>
+      <NavigationEvents onWillFocus={fetchTracks} />
       <FlatList
         data={state}
         renderItem={({ item }) => {
@@ -25,6 +24,10 @@ const TrackListScreen = ({ navigation }) => {
     </React.Fragment>
   );
 };
+
+TrackListScreen.navigationOptions = {
+  title: 'Tracks'
+}
 
 const styles = StyleSheet.create({});
 
